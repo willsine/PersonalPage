@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="content-type" content="text/html" charset="UTF-8">
+    <style>
+
+
+        html, body {
+            font-family: "Corbel",'Hiragino Sans GB','Microsoft Yahei','微软雅黑',sans-serif;
+            font-size: 18px;
+            height: 100%;
+            width: 100%;
+            background-color: #C4C4C4;
+        }
+        .slide {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2) inset;
+            height: 100%;
+            position: relative;
+            width: 100%;
+        }
+        * {
+            border: 0 none;
+            font-size: 100%;
+            margin: 0;
+            outline: medium none;
+            padding: 0;
+            vertical-align: baseline;
+        }
+
+
+        #slider1 {
+            position: relative;
+            background: url("img/10.jpg") repeat scroll 0 0 / cover rgba(0, 0, 0, 0);
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+
+
+        }
+
+        .button {
+            background: url("img/arrow.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+            bottom: 20px;
+            display: block;
+            height: 60px;
+            left: 50%;
+            margin-left: -30px;
+            opacity: 0.75;
+            position: absolute;
+            width: 60px;
+            z-index: 9999;
+
+            /*animation: 2.7s ease-in-out 0s normal none infinite first-down-btn;*/
+            transition:all 0.1s ease-in;
+        }
+        a.totop{
+            background-position: -60px 0;
+            /*top: 30px;*/
+            width: 80px;
+            height: 80px;
+            bottom: 10px;
+            margin-left: -40px;
+
+        }
+        img.center{
+            margin: auto;
+            position: absolute;
+            display: block;
+            top: 0;left: 0;right: 0; bottom: 0;
+
+            /*-webkit-box-shadow:2px 2px 3px rgba(135, 139, 144, 0.4); -moz-box-shadow:2px 2px 3px rgba(135, 139, 144, 0.4); box-shadow:2px 2px 3px rgba(135, 139, 144, 0.4);*/
+            -webkit-transition:all 0.5s ease-in;    /*表示所有属性都执行过度效果，执行时间为0.5秒，过渡动画类型为先慢后快 */
+            -moz-transition:all 0.5s ease-in;
+            transition:all 0.5s ease-in;
+
+
+        }
+        .center:hover,.center:focus,.center:active{
+
+            /*-webkit-box-shadow:15px 15px 20px rgba(50, 50, 50, 0.4); -moz-box-shadow:15px 15px 20px rgba(50, 50, 50, 0.4); box-shadow:15px 15px 20px rgba(50, 50, 50, 0.4);*/
+            -webkit-transform: scale(1.05); -moz-transform:scale(1.05); transform: scale(1.05);  /*图片为原来的1.05倍产生拉近的效果*/
+        }
+
+        .button:hover,.button:focus,.button:active{
+            background-position: 0 -60px;
+            -webkit-transform: scale(1.05); -moz-transform:scale(1.05); transform: scale(1.05);
+            cursor: pointer;
+
+        }
+        .first:hover,.first:focus,.first:active{
+            background: url("img/arrow.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+            -webkit-transform: scale(1.05); -moz-transform:scale(1.05); transform: scale(1.05);
+            cursor: pointer;
+        }
+        .totop:hover,.totop:focus,.totop:active{
+            background-position: -60px 0;
+
+        }
+        #slider2{
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+        div.common{
+            position: absolute;  /*会触发BFC 可以包含浮动*/
+            margin: auto;
+            top:0;right: 0;bottom: 0; left: 0;
+            zoo :1;
+            padding: 20px;
+            width: 1200px;
+            height: 400px;
+            background-color: #F6F6F6;
+            border-radius: 6px;
+            box-shadow: 3px 5px 2px rgba(135, 139, 144, 1);
+        }
+
+        div#introduction{
+            height: 400px;
+        }
+
+
+        div#left{
+            float: left;
+            height: 100%;
+            width: 58.3%;
+            box-shadow: 0 2px 2px rgba(135, 139, 144, 0.4);
+        }
+
+        ul ,li{
+            list-style-type: none;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        li.intro{
+            float: left;
+            position: relative;
+            top:50%;
+            height: 260px;
+
+            width: 173px;
+            margin-top: -130px;
+            /*border: 1px solid lightblue;*/
+
+        }
+        img.intro{
+            -webkit-filter: blur(1px);
+            -moz-filter: blur(1px);
+            filter:blur(1px);
+            transition:all 0.5s ease-in;
+        }
+
+        img.intro:hover,img.intro:focus,img.intro:active{
+            -webkit-box-shadow:15px 15px 20px rgba(50, 50, 50, 0.4);
+            -moz-box-shadow:15px 15px 20px rgba(50, 50, 50, 0.4);
+            box-shadow:15px 15px 20px rgba(50, 50, 50, 0.4);
+            -webkit-transform: scale(1.05);
+            -moz-transform: scale(1.05);
+
+            transform:  scale(1.08);  /*图片为原来的1.05倍产生拉近的效果*/
+            z-index: 1;
+
+            -webkit-filter: blur(0px);
+            -moz-filter: blur(0px);
+            filter:blur(0px);
+
+        }
+        li.intro:hover{
+            cursor: pointer;
+        }
+        div#right{
+            float: right;
+            display: table;
+            width: 460px;
+            height: 400px;
+            /*line-height: 360px;*/
+            padding: 20px;
+            text-indent: 8px;
+        }
+        div.head{
+            height: 120px;
+            position: relative;
+        }
+
+        img.profile {
+            box-shadow: 0 0 2px 3px rgba(255, 255, 255, 0.7), 0 0 8px 8px rgba(0, 0, 0, 0.25);
+            position: absolute;
+            margin:auto ;
+            left: 0;right: 0; top: 0; bottom: 0;
+            max-width: 100px;
+            transition: all 500ms ease 0s;
+            border-radius: 120px;
+            border: 0 none;
+            height: auto;
+            vertical-align: middle;
+        }
+        div.article{
+            height: 240px;
+            display: none;
+            /*vertical-align: middle;*/
+            line-height: 40px;
+            text-indent: 20px;
+        }
+        div[class$=two]{
+
+        }
+        span{
+            display: table-cell;
+            vertical-align:middle;
+        }
+
+        a.link{
+           background: url(img/externalLink.gif) right top no-repeat;
+            padding-right: 10px;
+            text-decoration: none;
+
+        }
+        div#special{
+            padding: 0;
+            height: 450px;
+        }
+
+        div#activity{
+            /*float: left;*/
+            position: relative;
+            /*margin: auto;*/
+            height: 100%;
+            width: 600px;
+            overflow: hidden;
+            box-shadow: 2px 2px 2px rgba(135, 139, 144, 0.4);
+        }
+        img.ac-content{
+            /*position: absolute;*/
+            /*left: 0; top: 0; right: 0;bottom: 0;*/
+            /*margin-left:40px ;*/
+            /*margin-top: 25px;*/
+        }
+
+        a.cursor{
+            border-radius: 23px;
+            font-size: 60px;
+            font-weight: 100;
+            height: 40px;
+            line-height: 30px;
+            margin-top: -20px;
+            opacity: 0.5;
+            position: absolute;
+            text-align: center;
+            top: 50%;
+            width: 40px;
+            cursor: pointer;
+            transition:all 0.1s ease-in;
+        }
+        a.pre{
+            background: url("img/pre-arrow-glow.png") no-repeat scroll 0 0 #222222;
+            left: 20px;
+        }
+
+        a.next{
+            background: url("img/next-arrow-glow.png") no-repeat scroll 0 0 #222222;
+            left: 530px;
+        }
+
+
+        .cursor:hover,.cursor:focus,.cursor:active{
+            -webkit-transform: scale(1.05); -moz-transform:scale(1.05);
+            transform: scale(1.05);  /*图片为原来的1.05倍产生拉近的效果*/
+        }
+        div#ac-wrapper{
+            position: absolute;
+            width: 3600px;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+         li.ac-content{
+            float: left;
+            list-style:none;
+            margin:0;
+            padding:0;
+            /*margin-left: 520px;*/
+        }
+
+
+        div#ac-discription{
+            position: absolute;
+            top: 0;
+            right: 0;
+            /*float: right;*/
+            width: 560px;
+            height: 100%;
+            padding: 20px;
+            display: table;
+            line-height: 40px;
+        }
+        p.discription{
+            display: table-cell;
+            vertical-align: middle;
+            text-indent: 30px;
+        }
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            right: 15px;
+            top: auto;
+        }
+        .carousel-indicators li {
+            display: block;
+            float: left;
+            width: 10px;
+            height: 10px;
+            margin-left: 5px;
+            text-indent: -999px;
+            background-color: #ccc;
+            background-color: rgba(255,255,255,0.25);
+            border-radius: 5px;
+        }
+    li.current{
+        background-color: #ffffff;
+    }
+
+    #slider4{
+        /*background:url(img/title.jpg) no-repeat right top;*/
+    }
+    canvas#circle{
+        position: relative;
+        top: 50%;
+        margin-top: -150px;
+        /*margin-left: 100px;*/
+    }
+    img.titles{
+        position: absolute;
+        top: -6px;
+        right: -8px;
+        max-width: 150px;
+
+    }
+
+    div#professional{
+       /*position: relative;*/
+    }
+    div.pie{
+        left: 420px;
+        margin-top: -150px;
+        position: absolute;
+        top: 50%;
+        width: 250px;
+    }
+
+    div.scroll-item {
+        float: left;
+        height: 50px;
+        margin-top: 10px;
+        width: 250px;
+    }
+
+    div.scroll-item div.rect{
+        float: left;
+        height: 50px;
+        width: 31px;
+    }
+
+    div.scroll-item div.item-text{
+        float: right;
+        height: 50px;
+        line-height: 50px;
+        width: 200px;
+        font-size: 1.1em;
+    }
+
+    div.item-even{
+        background-color: #E7E8EC;
+    }
+    div.item-odd{
+        background-color: #E0ECF6;
+    }
+
+    canvas#cvs{
+        height: 80%;
+        position: absolute;
+        right: 155px;
+        top: 10%;
+        width: 360px;
+
+    }
+
+    div#contact-me{
+        position: relative;
+        height: 100px;
+        top: 40px;
+
+    }
+
+    div#contact-me img{
+        position: relative;
+        left: 50%;
+        margin-left:-251px;
+        /*top: 40px;*/
+
+    }
+    div#icon-show{
+        overflow: hidden;
+        position: relative;
+        width: 60%;
+        height: 150px;
+        left: 25%;
+        top: 10%;
+    }
+
+    li.icon{
+        float: left;
+        margin-left:40px;
+        position: relative;
+    }
+    a:hover{
+        cursor: pointer;
+
+    }
+    img.icon-img{
+        position: relative;
+        top: 13px;
+        height: 74px;
+        width: 74px;
+        border-radius: 38px;
+        -webkit-transition:all 0.5s ease-in;
+        -moz-transition:all 0.5s ease-in;
+        transition:all 0.5s ease-in;
+    }
+
+    img.icon-img:hover,img.icon-img:focus,img.icon-img:active{
+        -webkit-box-shadow:15px 15px 20px rgba(50, 50, 50, 0.4);
+        -moz-box-shadow:15px 15px 20px rgba(50, 50, 50, 0.4);
+        box-shadow:15px 15px 20px rgba(50, 50, 50, 0.4);
+        -webkit-transform: scale(1.05);
+        -moz-transform: scale(1.05);
+        transform: scale(1.05);
+    }
+
+    span.icon-text{
+        position: relative;
+        height: 63px;
+        width: 74px;
+        line-height: 63px;
+        text-align: center;
+        color: #FBD244;
+    }
+
+    img.show-tel{
+        position: relative;
+        left: 50%;
+        margin-left: -150px;
+        height: 50px;
+        top: 55px;
+        display: none;
+    }
+
+    img.wei{
+        height: 105px;
+        position: relative;
+        left: 50%;
+        margin-left: -200px;
+        top:40px;
+        display: none;
+    }
+
+
+
+    </style>
+</head>
+<body>
+   <div id="slider1" class="slide" data-slide="1">
+       <img class="center title" alt="Harrsion Wu" data-stellar-ratio="1" src="img/name3.gif">
+       <a class="first button " title="" data-slide="2"></a>
+   </div>
+   <div id="slider2" class="slide" data-slide="2">
+       <div id="introduction" class="common">
+           <img src="img/grow.gif" class="pro titles">
+           <div id="left">
+               <ul>
+                   <!--<li class="intro"><img src="img/baby.jpg"></li>-->
+                   <li class="intro one"><img class="intro photo" src="img/child.jpg" title=""></li>
+                   <li class="intro two"><img class="intro photo" src="img/school.jpg"></li>
+                   <li class="intro three"><img class="intro photo" src="img/company.jpg"></li>
+                   <li class="intro four"><img class="intro photo" src="img/future.jpg"></li>
+
+               </ul>
+           </div>
+           <div id="right">
+               <div class="head">
+                   <img class="profile" src="img/head1.jpg">
+               </div>
+               <div class="article one">
+                   <span>我是吴浩，1992年的夏天我出生于有着中国第一将军县的
+                   <a class="link" href="http://zh.wikipedia.org/zh-cn/%E7%BA%A2%E5%AE%89%E5%8E%BF" target="_blank">红安县</a>， 这片红色的土地深深的感染着我.
+                   </span>
+               </div>
+               <div class="article two">
+                   <span>2010年进入<a class="link" href="http://www.hbtcm.edu.cn/" target="_blank">湖北中医药大学</a>信息工程学院学习医学信息工程，主修编程基础(delphi、java)，数据库原理、医院信息系统等课程。
+                   大概是大三的下学期开始接触到了前端，立刻让我产生了浓厚的兴趣，于是自学了javacript、css等课程，决心加入这个让人激动的行业。
+                   </span>
+               </div>
+               <div class="article three">
+                   <span>2013年10月在<a class="link" href="http://www.founderinternational.com/" target="_blank">方正国际软件(北京)有限公司</a> 医疗卫生事业部
+                       研发实习，在这里真正感受都工作的氛围以及团队合作、沟通的重要，获益良多</span>
+               </div>
+               <div class="article four">
+                   <span>关于未来...web这个令人兴奋的行业会不会有我的一席之地？<br>路漫漫其修远兮，吾将上下而求索</span>
+               </div>
+
+           </div>
+       </div>
+       <a class="button" title="" data-slide="3"></a>
+   </div>
+   <div id="slider3" class="slide" data-slide="3">
+
+       <div class="common" id="professional">
+           <img src="img/top.gif" class="pro titles">
+           <canvas id="circle" width="400" height="300">您的浏览器暂不支持Canvas</canvas>
+           <div class="pie discription">
+               <div class="scroll-item item-even">
+                   <div class="rect" style="background-color: rgb(119, 209, 246); "></div>
+                   <div class="item-text">20% &nbsp; Java</div>
+               </div>
+               <div class="scroll-item item-odd">
+                   <div class="rect" style="background-color: rgb(44, 168, 224); "></div>
+                   <div class="item-text">15% &nbsp; HTML(HTML5)</div>
+               </div>
+               <div class="scroll-item item-even">
+                   <div class="rect" style="background-color: rgb(54, 102, 176); "></div>
+                   <div class="item-text">25% &nbsp; JavaScript</div>
+               </div>
+               <div class="scroll-item item-odd">
+                   <div class="rect" style="background-color: rgb(47, 54, 143); "></div>
+                   <div class="item-text">25% &nbsp; CSS(CSS3)</div>
+               </div>
+               <div class="scroll-item item-even">
+                   <div class="rect" style="background-color: rgb(39, 37, 95); "></div>
+                   <div class="item-text">15% &nbsp; JQuery</div>
+               </div>
+           </div>
+
+
+           <canvas id="cvs" width="360" height="320">您的浏览器暂不支持Canvas</canvas>
+
+       </div>
+
+       <a class="button" title="" data-slide="4"></a>
+
+   </div>
+   <div id="slider4" class="slide" data-slide="4">
+       <div class="common" id="special">
+           <img src="img/school.gif" class="pro titles">
+          <div id="activity" title="test">
+
+              <div id="ac-wrapper">
+                  <ul>
+                      <li class="ac-content"><img class="ac-content" src="img/game1.jpg"></li>
+                      <li class="ac-content"><img class="ac-content" src="img/game2.jpg"></li>
+                      <li class="ac-content"><img class="ac-content" src="img/game3.jpg"></li>
+                      <li class="ac-content"><img class="ac-content" src="img/game4.jpg"></li>
+                      <li class="ac-content"><img class="ac-content" src="img/game5.jpg"></li>
+                      <li class="ac-content"><img class="ac-content" src="img/game6.jpg"></li>
+                  </ul>
+              </div>
+              <a class="cursor control pre"></a>
+              <a class="cursor control next"></a>
+              <ol class="carousel-indicators">
+                  <li class="current"></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+              </ol>
+          </div>
+          <div id="ac-discription">
+               <p class="discription">大学生活可谓丰富多彩，精彩纷呈的球赛、欢乐无限的班级活动，让人留恋不已。在大学期间我担任系志愿者协会副部长，
+                   组织参加了各种志愿者活动，乐在其中。在学习之余也曾外出兼职做过商场促销员、酒店服务员等，充实自己的大学生活，更是一种锻炼。</p>
+          </div>
+       </div>
+       <a class="button" title="" data-slide="6"></a>
+   </div>
+
+
+
+   <!--<div id="slider5" class="slide" data-slide="5">-->
+       <!--<div class="common" id="hobby">-->
+           <!--<img src="img/hobby.gif" class="hobby titles">-->
+
+
+       <!--</div>-->
+       <!--<a class="button" title="" data-slide="6"></a>-->
+   <!--</div>-->
+
+   <div id="slider6" class="slide" data-slide="6">
+       <div class="common" id="contact">
+           <img src="img/contact.gif" class="contact titles">
+           <div id="contact-me">
+               <img src="img/contactme.png">
+           </div>
+           <div id="icon-show">
+               <ul>
+                   <li class="icon">
+                       <a>
+                           <img src="img/phone1.png" class="icon-img tel">
+                       </a>
+                       <span class="icon-text">电话</span>
+                   </li>
+                   <li class="icon">
+                       <a>
+                           <img src="img/wechat.png" class="icon-img wechat">
+                       </a>
+                       <span class="icon-text">微信</span>
+                   </li>
+                   <li class="icon">
+                       <a href="mailto:willsine.caffery@gmail.com">
+                           <img src="img/contacts-email.png" class="icon-img">
+                       </a>
+                       <span class="icon-text">邮件</span>
+                   </li>
+                   <li class="icon">
+                       <a target="_blank" href="http://weibo.com/signup/signup.php?inviteCode=2648239850">
+                           <img src="img/contacts-weibo.png" class="icon-img">
+                       </a>
+                       <span class="icon-text">新浪微博</span>
+                   </li>
+                   <li class="icon">
+                       <a target="_blank" href="http://www.zhihu.com/people/caffery-willsine">
+                           <img src="img/contacts-zhihu.png" class="icon-img">
+                       </a>
+                       <span class="icon-text">知乎</span>
+                   </li>
+
+               </ul>
+           </div>
+
+           <img src="img/tel.png" class="show-tel">
+           <img src="img/code.png" class="wei code">
+
+       </div>
+       <a class="button totop" title="" data-slide="7"></a>
+
+   </div>
+
+   <script type="text/javascript" src="js/jquery-1.6.1.js"></script>
+   <script src="js/jquery.easing.1.3.js" type="text/javascript"></script>
+   <script type="text/javascript" src="js/RGraph/RGraph.common.core.js" ></script>
+   <script type="text/javascript" src="js/RGraph/RGraph.bar.js" ></script>
+
+<script>
+    $(document).ready(function(){
+        var  htmlbody = $('html,body');
+
+        var button = htmlbody.find('.button');
+
+
+//        $('.button').bind('mouseover',function(e){
+//            button.removeAttr("active");
+//            e.target.setAttribute("active","active");
+//        })
+//                .bind('mouseout',function(e){
+//                    button.removeAttr("active");
+//                });
+
+        $('a[title]').bind('click',function(e){
+//            alert('ok');
+//            e.preventDefault();
+          var data= $(this).attr('data-slide');
+
+            if(data!=7){
+
+                htmlbody.animate({
+                    scrollTop: $('#slider'+data).offset().top
+//                scrollTop:"200px"
+                }, 2000, 'easeInOutQuint');
+            }else{
+
+                htmlbody.animate({
+                    scrollTop: $('#slider1').offset().top
+//                scrollTop:"200px"
+                }, 1000, 'linear');
+            }
+
+
+
+        });
+
+
+        $('li[class$=one]').bind('click',function(){
+           var right =  $(this).parents('div#left').next().find("div[class$=one]");
+            var show = right.css('display');
+            if(show=='none'){
+                $(this).parents('div#left').next().find("div[class^=article]:not(.one)").css("display","none");
+                right.show(1000)
+                     .css("display","table");
+            }else{
+                right.hide(1000);
+            }
+
+        });
+
+
+        $('li[class$=two]').bind('click',function(){
+            var right =  $(this).parents('div#left').next().find("div[class$=two]");
+            var show = right.css('display');
+            if(show=='none'){
+                $(this).parents('div#left').next().find("div[class^=article]:not(.two)").css("display","none");
+                right.fadeIn(2000)
+                        .css("display","table");
+            }else{
+                right.fadeOut(1000);
+            }
+
+        });
+
+
+        $('li[class$=three]').bind('click',function(){
+            var right =  $(this).parents('div#left').next().find("div[class$=three]");
+            var show = right.css('display');
+            if(show=='none'){
+                $(this).parents('div#left').next().find("div[class^=article]:not(.three)").css("display","none");
+                right.slideDown(1500)
+                        .css("display","table");
+            }else{
+                right.slideUp(1000);
+            }
+
+        });
+
+
+        $('li[class$=four]').bind('click',function(){
+            var right =  $(this).parents('div#left').next().find("div[class$=four]");
+            var show = right.css('display');
+            if(show=='none'){
+                $(this).parents('div#left').next().find("div[class^=article]:not(.four)").css("display","none");
+                right.slideDown(1500)
+                        .css("display","table");
+            }else{
+                right.slideUp(1000);
+            }
+
+        });
+
+    });
+
+
+    $(document).ready(function(){
+        var page=1;
+        $('a[class$=next]').bind('click',function(){         //下一张图片动画
+
+
+            var $parent= $(this).parents("div#activity");
+            var $show = $parent.find("div#ac-wrapper");
+
+            var width = $($parent).width();
+            var len = $show.find('li').length;
+//            alert($show.attr('id'));
+//            alert(len);
+//            alert(page);
+            if(!$show.is(":animated")){
+                if(page==len){
+                    $show.animate({left:0},0);
+//                    $show.css("left",'-='+width).fadeIn(1000);
+                    page=1;
+                }else{
+                    $show.animate({left:'-='+width},1000);
+                    page++;
+                }
+            }
+            $parent.find("li:not(.ac-content)").eq((page-1)).addClass("current").siblings().removeClass("current");
+
+        });
+
+
+        $('a[class$=pre]').bind('click',function(){
+
+
+            var $parent= $(this).parents("div#activity");
+            var $show = $parent.find("div#ac-wrapper");
+//            alert($parent.find("li:not(.ac-content)").length);
+
+            var width = $($parent).width();
+            var len = $show.find('li').length;
+//            alert($show.attr('id'));
+//            alert(len);
+//            alert(page);
+            if(!$show.is(":animated")){
+                if(page==1){
+                    $show.animate({left:'-='+width*(len-1)},0);
+                    page=len;
+                }else{
+                    $show.animate({left:'+='+width},1000);
+                    page--;
+                }
+            }
+            $parent.find("li:not(.ac-content)").eq((page-1)).addClass("current").siblings().removeClass("current");
+
+        });
+    });
+
+    var color=["#27255F","#2F368F","#3666B0","#2CA8E0","#77D1F6"];
+    var data = [15,25,25,15,20];
+    var position=0;
+
+    function drawCircle(){
+        var canvas= document.getElementById('circle');
+        var ctx = canvas.getContext('2d');
+        for(var i=0;i<data.length;i++){
+            ctx.fillStyle=color[i];
+            ctx.beginPath();
+            ctx.moveTo(200,150);
+
+            ctx.arc(200,150,150,position,position+Math.PI*2*(data[i]/100),false);
+            ctx.fill();
+            position+=Math.PI*2*(data[i]/100);
+        }
+
+    }
+    drawCircle();
+
+    function drawBar(){
+        var bar4 = new RGraph.Bar('cvs', [70,70,65,60,60])
+                .Set('colors', ['#77D1F6'])
+                .Set('labels', ['JavaScript', 'CSS', 'Java', 'HTML', 'JQuery'])
+                .Set('numyticks', 5)
+                .Set('ylabels.count', 10)
+                .Set('gutter.left', 35)
+                .Set('variant', '3d')
+                .Set('strokestyle', 'transparent')
+                .Set('hmargin.grouped', 0)
+                .Set('scale.round', true)
+                .Draw();
+    }
+    drawBar();
+
+
+    $('img.icon-img').bind('mouseover',function(e){
+//        alert(e.target.className);
+        $(this).parents("a").next().css("color","blue");
+//        $('span.icon-text').css();
+    })
+            .bind('mouseout',function(){
+                $(this).parents("a").next().css("color","#FBD244");
+            });
+
+    $('img.tel').bind('click',function(){
+        var photo = $(this).parents('div#icon-show').next();
+        var dis = photo.css("display");
+        if(dis=="none"){
+            photo.next().css("display","none");
+            photo.fadeIn(2000);
+        }else{
+            photo.fadeOut(1000);
+        }
+    });
+
+    $('img.wechat').bind('click',function(){
+        var photo = $(this).parents('div#icon-show').next().next();
+        var dis = photo.css("display");
+        if(dis=="none"){
+            photo.prev().css("display","none");
+            photo.fadeIn(2000);
+        }else{
+            photo.fadeOut(1000);
+        }
+    });
+
+
+
+</script>
+
+
+</body>
+</html>
